@@ -1,0 +1,98 @@
+CREATE DATABASE examenfinal;
+
+
+USE examenfinal;
+CREATE TABLE Materia(
+	[sigla] [varchar](10) NOT NULL,
+	[nombremateria] [varchar](30) NOT NULL,
+	[cupos] [int] NOT NULL
+) ON [PRIMARY];
+
+CREATE TABLE Condicional(
+	[proceso] [varchar](10) NOT NULL,
+	[si] [varchar](10) NULL,
+	[no] [varchar](10) NULL
+) ON [PRIMARY];
+
+CREATE TABLE Persona(
+	[usuario] [varchar](20) NOT NULL,
+	[nombre] [varchar](20) NOT NULL,
+	[paterno] [varchar](20) NOT NULL,
+	[materno] [varchar](20) NOT NULL,
+	[fechanac] [date] NOT NULL,
+	[ci] [int] NOT NULL
+) ON [PRIMARY];
+
+CREATE TABLE Proceso(
+	[flujo] [varchar](10) NOT NULL,
+	[proceso] [varchar](10) NOT NULL,
+	[tipo] [varchar](10) NOT NULL,
+	[rol] [varchar](10) NOT NULL,
+	[siguiente] [varchar](10) NOT NULL,
+	[formulario] [varchar](30) NOT NULL
+) ON [PRIMARY];
+
+CREATE TABLE Seguimiento(
+	[tramite] [int] IDENTITY(1,1) NOT NULL,
+	[usuario] [varchar](20) NOT NULL,
+	[flujo] [varchar](10) NOT NULL,
+	[proceso] [varchar](10) NOT NULL,
+	[fechainicio] [date] NOT NULL,
+	[fechafin] [date] NULL
+) ON [PRIMARY];
+
+CREATE TABLE Usuario(
+	[usuario] [varchar](20) NOT NULL,
+	[contrasenia] [varchar](20) NOT NULL,
+	[rol] [varchar](20) NOT NULL
+) ON [PRIMARY];
+
+create table flujoproceso
+(
+flujo varchar(3),
+proceso  varchar(3),
+tipo varchar(1),
+rol varchar(15), 
+procesosiguiente varchar(3),
+formulario varchar(20)
+);
+
+insert into flujoproceso values('F1','P1','I','Usuario','P2','index.php');
+insert into flujoproceso values('F1','P2','P','Usuario','P3','bandejaCandidato.php');
+insert into flujoproceso values('F1','P3','C','Usuario', null,'checkDocs.php');
+insert into flujoproceso values('F1','P4','P','Usuario', 'P2','failDocs.php');
+insert into flujoproceso values('F1','P5','P','Usuario', 'P6','qualifiedCand.php');
+insert into flujoproceso values('F1','P6','P','Usuario', 'Fin','accepted.php');
+INSERT INTO Usuario VALUES('usuario324','123456','admin');
+INSERT INTO Usuario VALUES('rodrigo','1111','admin');
+INSERT INTO Usuario VALUES('miguel','2222','admin');
+INSERT INTO Usuario VALUES('wara','3333','docente');
+INSERT INTO Usuario VALUES('arturo','4444','docente');
+
+INSERT INTO Materia VALUES('INF-111','Introduccion a la Programacion',5);
+INSERT INTO Materia VALUES('INF-121','Algoritmos y Programacion',5);
+INSERT INTO Materia VALUES('INF-131','Estructuras de Datos',4);
+INSERT INTO Materia VALUES('INF-143','Taller de Programacion',3);
+INSERT INTO Materia VALUES('INF-161','Introduccion a Base de Datos',3);
+INSERT INTO Materia VALUES('INF-272','Taller de Base de Datos',2);
+
+
+INSERT INTO Persona VALUES('usuario324','carlos','a','b','2020-01-15',1);
+INSERT INTO Persona VALUES('rodrigo','rodrigo','ticona','coronel','2020-02-14',2);
+INSERT INTO Persona VALUES('miguel','miguel','condori','quispe','2020-03-13',3);
+INSERT INTO Persona VALUES('wara','wara','ramos','mamani','2020-04-12',4);
+INSERT INTO Persona VALUES('arturo','arturo','navia','pavia','2020-05-11',5);
+
+
+insert into Seguimiento (usuario, flujo, proceso, fechainicio, fechafin) values('miguel','F1','P1','2021/10/13 10:00','2021/10/13 12:00');
+insert into Seguimiento (usuario, flujo, proceso, fechainicio, fechafin) values('miguek','F1','P2','2021/10/13 12:00','2021/10/13 12:00');
+insert into Seguimiento (usuario, flujo, proceso, fechainicio, fechafin) values('miguel','F1','P3','2021/10/13 10:00','2021/10/13 12:00');
+insert into Seguimiento (usuario, flujo, proceso, fechainicio, fechafin) values('miguel','F1','P4','2021/10/13 12:00','2021/10/13 12:00');
+insert into Seguimiento (usuario, flujo, proceso, fechainicio, fechafin) values('miguel','F1','P5','2021/10/13 08:00','2021/10/13 10:00');
+
+insert into flujoproceso values('F1','P1','I','Usuario','P2','uno.html');
+insert into flujoproceso values('F1','P2','P','Usuario','P3','dos.html');
+insert into flujoproceso values('F1','P3','P','Usuario', 'P4','tres.html');
+insert into flujoproceso values('F1','P4','P','Usuario', 'P5','cuatro.html');
+insert into flujoproceso values('F1','P5','P','Usuario', 'P6','cinco.html');
+insert into flujoproceso values('F1','P6','P','Usuario', 'Fin','seis.html');
